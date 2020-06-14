@@ -18,3 +18,6 @@ Route::get('/', function () {
 });
 
 Route::resource('movies', 'MovieController');
+Route::resource('customers', 'CustomerController');
+Route::resource('showings', 'ShowingController');
+Route::resource('bookings', 'BookingController');

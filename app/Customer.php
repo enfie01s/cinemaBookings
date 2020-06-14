@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+    protected $fillable = ['name'];
     /**
-     * Get the showings for the screen.
+     * Get the bookings for the Customer.
      */
     public function bookings()
     {

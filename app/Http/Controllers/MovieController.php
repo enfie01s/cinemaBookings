@@ -100,16 +100,19 @@ class MovieController extends Controller
     {
         //
     }
-}
 
-class MovieApiController extends Controller
-{
+    /*
+    
+    API Responses
+
+     */
+    
     /**
      * Display a listing of the resource.
      *
      * @return json Response
      */
-    public function index()
+    public function indexApi()
     {
         return Movie::all();
     }
@@ -120,7 +123,7 @@ class MovieApiController extends Controller
      * @param  obj  $request
      * @return json Response
      */
-    public function store(Request $request)
+    public function storeApi(Request $request)
     {
         $movie = Movie::create($request->all());
 
@@ -133,7 +136,7 @@ class MovieApiController extends Controller
      * @param  int  $movie
      * @return json Response
      */
-    public function show(Movie $movie)
+    public function showApi(Movie $movie)
     {
         return $movie;
     }
@@ -145,7 +148,7 @@ class MovieApiController extends Controller
      * @param  int  $movie
      * @return Response
      */
-    public function update(Request $request, Movie $movie)
+    public function updateApi(Request $request, Movie $movie)
     {
         $movie->update($request->all());
 
@@ -158,7 +161,7 @@ class MovieApiController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function delete(Movie $movie)
+    public function deleteApi(Movie $movie)
     {
         $movie->delete();
 
