@@ -11,7 +11,7 @@ class Showing extends Model
      */
     public function movie()
     {
-        return $this->belongsTo('App\Movie');
+        return $this->hasOne('App\Movie');
     }
     /**
      * Get the screen for the showing.

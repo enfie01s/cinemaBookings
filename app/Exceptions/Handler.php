@@ -48,8 +48,22 @@ class Handler extends ExceptionHandler
      *
      * @throws \Throwable
      */
+/*    public function render($request, Throwable $exception)
+    {
+        return parent::render($request, $exception);
+    }*/
     public function render($request, Throwable $exception)
     {
+        // This will replace our 404 response with
+        // a JSON response.
+        if ($exception instanceof ModelNotFoundException &&
+            $request->wantsJson())
+        {
+            return response()->json([
+                'data' => 'Resource not found'
+            ], 404);
+        }
+
         return parent::render($request, $exception);
     }
 }

@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Screen extends Model
+class Customer extends Model
 {
     /**
      * Get the showings for the screen.
      */
-    public function showings()
+    public function bookings()
     {
-        return $this->belongsTo('App\Showing');
+        return $this->belongsTo('App\Booking');
     }
 }
