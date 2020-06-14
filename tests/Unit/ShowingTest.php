@@ -14,18 +14,8 @@ class ShowingTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $movie1 = factory(\App\Movie::class)->create([
-                'title' => 'Movie One',
-                'seo_title' => 'movie_one',
-                'synopsis' => 'blah',
-                'certification' => 'U'
-            ]);
-        $movie2 = factory(\App\Movie::class)->create([
-                'title' => 'Movie Two',
-                'seo_title' => 'movie_two',
-                'synopsis' => 'blah',
-                'certification' => 'U'
-            ]);
+        $movie1 = factory(\App\Movie::class)->create();
+        $movie2 = factory(\App\Movie::class)->create();
         $this->test_data = array(
             [
                 'movie_id' => $movie1->id,
