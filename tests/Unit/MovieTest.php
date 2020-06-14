@@ -10,80 +10,62 @@ use App\User;
 
 class MovieTest extends TestCase
 {
-    //use DatabaseMigrations;
-
     protected static $movie;
 
     public function setUp(): void
     {
         parent::setUp();
+        $this->test_data = array(
+            [
+                'title' => 'Movie One',
+                'seo_title' => 'movie_one',
+                'synopsis' => 'blah',
+                'certification' => 'U'
+            ],
+            [
+                'title' => 'Movie Two',
+                'seo_title' => 'movie_Two',
+                'synopsis' => 'blah',
+                'certification' => 'U'
+            ]
+        );
     }
 
     public function testMovieAreListedCorrectly()
     {
-        factory(Movie::class)->create([
-            'title' => 'Movie One',
-            'seo_title' => 'movie_one',
-            'synopsis' => 'blah',
-            'certification' => 'U'
-        ]);
-
-        factory(Movie::class)->create([
-            'title' => 'Movie Two',
-            'seo_title' => 'movie_two',
-            'synopsis' => 'blah',
-            'certification' => 'U'
-        ]);
+        factory(Movie::class)->create($this->test_data[0]);
+        factory(Movie::class)->create($this->test_data[1]);
 
         $headers = [];
 
         $response = $this->json('GET', '/api/movies', [], $headers)
             ->assertStatus(200)
-            ->assertJson([
-                [ 'title' => 'Movie One', 'seo_title' => 'movie_one', 'synopsis' => 'blah', 'certification' => 'U' ],
-                [ 'title' => 'Movie Two', 'seo_title' => 'movie_two', 'synopsis' => 'blah', 'certification' => 'U' ]
-            ])
+            ->assertJson($this->test_data)
             ->assertJsonStructure([
                 '*' => ['id', 'title', 'seo_title', 'synopsis', 'certification', 'created_at', 'updated_at'],
             ]);
     }
 
-    /*public function testsMovieAreUpdatedCorrectly()
+    public function testsMovieAreUpdatedCorrectly()
     {
-        $user = factory(User::class)->create();
-        $token = $user->generateToken();
-        $headers = ['Authorization' => "Bearer $token"];
-        $article = factory(Article::class)->create([
-            'title' => 'First Article',
-            'body' => 'First Body',
-        ]);
+        $headers = [];
+        $movie = factory(Movie::class)->create($this->test_data[0]);
 
-        $payload = [
-            'title' => 'Lorem',
-            'body' => 'Ipsum',
-        ];
+        $payload = $this->test_data[0];
+        $assert_data = array('id' => 1) + $payload;
 
-        $response = $this->json('PUT', '/api/articles/' . $article->id, $payload, $headers)
+        $response = $this->json('PUT', '/api/movies/' . $movie->id, $payload, $headers)
             ->assertStatus(200)
-            ->assertJson([ 
-                'id' => 1, 
-                'title' => 'Lorem', 
-                'body' => 'Ipsum' 
-            ]);
+            ->assertJson($assert_data);
     }
 
     public function testsMovieAreDeletedCorrectly()
     {
-        $user = factory(User::class)->create();
-        $token = $user->generateToken();
-        $headers = ['Authorization' => "Bearer $token"];
-        $article = factory(Article::class)->create([
-            'title' => 'First Article',
-            'body' => 'First Body',
-        ]);
+        $headers = [];
+        $movie = factory(Movie::class)->create($this->test_data[0]);
 
-        $this->json('DELETE', '/api/articles/' . $article->id, [], $headers)
+        $this->json('DELETE', '/api/movies/' . $movie->id, [], $headers)
             ->assertStatus(204);
-    }*/
+    }
 }
 
