@@ -105,14 +105,21 @@ class MovieController extends Controller
      */
     public function storeViaApi(Request $request)
     {
+        // Validate the postedd data.
+        $this->validate($request, [
+            'title' => 'required',
+            'seo_title' => 'required|unique:movies',
+        ]);
+
+        // Validation passed, now sanitize the data.
         $filters = [
             'title' => 'trim|escape|capitalize',
             'seo_title' => 'trim|escape|lowercase',
             'certification' => 'trim|escape|uppercase',
             'synopsis' => 'strip_tags',
-        ];
-        
+        ];        
         $data = \Sanitizer::make($request->all(), $filters)->sanitize();
+
         $movie = Movie::create($data);
 
         return response()->json($movie, 201);

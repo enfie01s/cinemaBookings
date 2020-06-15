@@ -44,13 +44,21 @@ class BookingController extends Controller
      */
     public function storeViaApi(Request $request)
     {
+        // Validate the postedd data.
+        $this->validate($request, [
+            'customer_id' => 'required',
+            'showing_id' => 'required',
+            'seats' => 'required|json',
+        ]);
+
+        // Validation passed, now sanitize the data.
         $filters = [
             'customer_id' => 'digit',
             'showing_id' => 'digit',
             'seats' => 'cast:array',
-        ];
-        
+        ];        
         $data = \Sanitizer::make($request->all(), $filters)->sanitize();
+
         $booking = Booking::create($data);
 
         return response()->json($booking, 201);

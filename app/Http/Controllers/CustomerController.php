@@ -43,12 +43,19 @@ class CustomerController extends Controller
      */
     public function storeViaApi(Request $request)
     {
+        // Validate the postedd data.
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email:rfc',
+        ]);
+
+        // Validation passed, now sanitize the data.
         $filters = [
             'name' => 'trim|escape|capitalize',
             'email' => 'trim|escape|lowercase',
-        ];
-        
+        ];        
         $data = \Sanitizer::make($request->all(), $filters)->sanitize();
+
         $customer = Customer::create($data);
 
         return response()->json($customer, 201);

@@ -43,12 +43,19 @@ class ShowingController extends Controller
      */
     public function storeViaApi(Request $request)
     {
+        // Validate the postedd data.
+        $this->validate($request, [
+            'movie_id' => 'required',
+            'start_at' => 'required',
+        ]);
+
+        // Validation passed, now sanitize the data.
         $filters = [
             'movie_id' => 'digit',
             'start_at' => 'trim',
-        ];
-        
+        ];        
         $data = \Sanitizer::make($request->all(), $filters)->sanitize();
+
         $showing = Showing::create($data);
 
         return response()->json($showing, 201);
