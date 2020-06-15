@@ -7,7 +7,7 @@ use App\Movie;
 class MoviesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Add some movies to the database.
      *
      * @return void
      */

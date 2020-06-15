@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Booking;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Booking;
 
 class BookingTest extends TestCase
 {
@@ -43,14 +43,12 @@ class BookingTest extends TestCase
         );
     }
 
-    public function testBookingAreListedCorrectly()
+    public function testBookingsAreListedCorrectly()
     {
         factory(Booking::class)->create($this->test_data[0]);
         factory(Booking::class)->create($this->test_data[1]);
 
-        $headers = [];
-
-        $response = $this->json('GET', '/api/bookings', [], $headers)
+        $response = $this->json('GET', '/api/bookings', [])
             ->assertStatus(200)
             ->assertJson($this->test_data)
             ->assertJsonStructure([
@@ -58,33 +56,29 @@ class BookingTest extends TestCase
             ]);
     }
 
-    public function testsBookingAreCreatedCorrectly()
+    public function testBookingsAreCreatedCorrectly()
     {
-        $headers = [];
-
-        $response = $this->call('POST', '/api/bookings', $this->test_data[0], $headers)
+        $response = $this->call('POST', '/api/bookings', $this->test_data[0])
             ->assertStatus(201);
     }
 
-    public function testsBookingAreUpdatedCorrectly()
+    public function testBookingsAreUpdatedCorrectly()
     {
-        $headers = [];
         $booking = factory(Booking::class)->create($this->test_data[0]);
 
         $payload = $this->test_data[0];
         $assert_data = array('id' => 1) + $payload;
 
-        $response = $this->json('PUT', '/api/bookings/' . $booking->id, $payload, $headers)
+        $response = $this->json('PUT', '/api/bookings/' . $booking->id, $payload)
             ->assertStatus(200)
             ->assertJson($assert_data);
     }
 
-    public function testsBookingAreDeletedCorrectly()
+    public function testBookingsAreDeletedCorrectly()
     {
-        $headers = [];
         $booking = factory(Booking::class)->create($this->test_data[0]);
 
-        $this->json('DELETE', '/api/bookings/' . $booking->id, [], $headers)
+        $this->json('DELETE', '/api/bookings/' . $booking->id, [])
             ->assertStatus(204);
     }
 }

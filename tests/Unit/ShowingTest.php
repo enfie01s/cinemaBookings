@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Showing;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Showing;
 
 class ShowingTest extends TestCase
 {
@@ -14,8 +14,12 @@ class ShowingTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        // Set up dependant foreign keys
         $movie1 = factory(\App\Movie::class)->create();
         $movie2 = factory(\App\Movie::class)->create();
+
+        // Set up test data
         $this->test_data = array(
             [
                 'movie_id' => $movie1->id,
@@ -28,14 +32,12 @@ class ShowingTest extends TestCase
         );
     }
 
-    public function testShowingAreListedCorrectly()
+    public function testShowingsAreListedCorrectly()
     {
         factory(Showing::class)->create($this->test_data[0]);
         factory(Showing::class)->create($this->test_data[1]);
 
-        $headers = [];
-
-        $response = $this->json('GET', '/api/showings', [], $headers)
+        $response = $this->json('GET', '/api/showings', [])
             ->assertStatus(200)
             ->assertJson($this->test_data)
             ->assertJsonStructure([
@@ -43,33 +45,29 @@ class ShowingTest extends TestCase
             ]);
     }
 
-    public function testsShowingAreCreatedCorrectly()
+    public function testShowingsAreCreatedCorrectly()
     {
-        $headers = [];
-
-        $response = $this->call('POST', '/api/showings', $this->test_data[0], $headers)
+        $response = $this->call('POST', '/api/showings', $this->test_data[0])
             ->assertStatus(201);
     }
 
-    public function testsShowingAreUpdatedCorrectly()
+    public function testShowingsAreUpdatedCorrectly()
     {
-        $headers = [];
         $showing = factory(Showing::class)->create($this->test_data[0]);
 
         $payload = $this->test_data[0];
         $assert_data = array('id' => 1) + $payload;
 
-        $response = $this->json('PUT', '/api/showings/' . $showing->id, $payload, $headers)
+        $response = $this->json('PUT', '/api/showings/' . $showing->id, $payload)
             ->assertStatus(200)
             ->assertJson($assert_data);
     }
 
-    public function testsShowingAreDeletedCorrectly()
+    public function testShowingsAreDeletedCorrectly()
     {
-        $headers = [];
         $showing = factory(Showing::class)->create($this->test_data[0]);
 
-        $this->json('DELETE', '/api/showings/' . $showing->id, [], $headers)
+        $this->json('DELETE', '/api/showings/' . $showing->id, [])
             ->assertStatus(204);
     }
 }

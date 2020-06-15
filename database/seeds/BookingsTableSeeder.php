@@ -7,7 +7,7 @@ use App\Booking;
 class BookingsTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Add some bookings to the database.
      *
      * @return void
      */

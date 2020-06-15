@@ -15,22 +15,33 @@ class ShowingController extends Controller
      */
     
     /**
-     * Display a listing of the resource.
+     * Return a listing of the showings.
      *
      * @return json Response
      */
-    public function indexApi()
+    public function returnAll()
     {
         return Showing::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Return the specified showing.
+     *
+     * @param  int  $showing
+     * @return json Response
+     */
+    public function returnOne(Showing $showing)
+    {
+        return $showing;
+    }
+
+    /**
+     * Store a newly created showing in storage.
      *
      * @param  obj  $request
      * @return json Response
      */
-    public function storeApi(Request $request)
+    public function storeViaApi(Request $request)
     {
         $filters = [
             'movie_id' => 'digit',
@@ -44,24 +55,13 @@ class ShowingController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $showing
-     * @return json Response
-     */
-    public function showApi(Showing $showing)
-    {
-        return $showing;
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified showing in storage.
      *
      * @param  obj  $request
      * @param  int  $showing
      * @return Response
      */
-    public function updateApi(Request $request, Showing $showing)
+    public function updateViaApi(Request $request, Showing $showing)
     {
         $showing->update($request->all());
 
@@ -69,12 +69,12 @@ class ShowingController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified showing from storage.
      *
      * @param  int  $id
      * @return Response
      */
-    public function deleteApi(Showing $showing)
+    public function deleteViaApi(Showing $showing)
     {
         $showing->delete();
 

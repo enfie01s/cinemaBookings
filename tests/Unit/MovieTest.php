@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Movie;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Movie;
 
 class MovieTest extends TestCase
 {
@@ -30,14 +30,12 @@ class MovieTest extends TestCase
         );
     }
 
-    public function testMovieAreListedCorrectly()
+    public function testMoviesAreListedCorrectly()
     {
         factory(Movie::class)->create($this->test_data[0]);
         factory(Movie::class)->create($this->test_data[1]);
 
-        $headers = [];
-
-        $response = $this->json('GET', '/api/movies', [], $headers)
+        $response = $this->json('GET', '/api/movies', [])
             ->assertStatus(200)
             ->assertJson($this->test_data)
             ->assertJsonStructure([
@@ -45,33 +43,29 @@ class MovieTest extends TestCase
             ]);
     }
 
-    public function testsMovieAreCreatedCorrectly()
+    public function testMoviesAreCreatedCorrectly()
     {
-        $headers = [];
-
-        $response = $this->call('POST', '/api/movies', $this->test_data[0], $headers)
+        $response = $this->call('POST', '/api/movies', $this->test_data[0])
             ->assertStatus(201);
     }
 
-    public function testsMovieAreUpdatedCorrectly()
+    public function testMoviesAreUpdatedCorrectly()
     {
-        $headers = [];
         $movie = factory(Movie::class)->create($this->test_data[0]);
 
         $payload = $this->test_data[0];
         $assert_data = array('id' => 1) + $payload;
 
-        $response = $this->json('PUT', '/api/movies/' . $movie->id, $payload, $headers)
+        $response = $this->json('PUT', '/api/movies/' . $movie->id, $payload)
             ->assertStatus(200)
             ->assertJson($assert_data);
     }
 
-    public function testsMovieAreDeletedCorrectly()
+    public function testMoviesAreDeletedCorrectly()
     {
-        $headers = [];
         $movie = factory(Movie::class)->create($this->test_data[0]);
 
-        $this->json('DELETE', '/api/movies/' . $movie->id, [], $headers)
+        $this->json('DELETE', '/api/movies/' . $movie->id, [])
             ->assertStatus(204);
     }
 }

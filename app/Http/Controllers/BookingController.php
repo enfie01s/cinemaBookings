@@ -16,22 +16,33 @@ class BookingController extends Controller
      */
     
     /**
-     * Display a listing of the resource.
+     * Return a listing of the bookings.
      *
      * @return json Response
      */
-    public function indexApi()
+    public function returnAll()
     {
         return Booking::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Return the specified booking.
+     *
+     * @param  int  $booking
+     * @return json Response
+     */
+    public function returnOne(Booking $booking)
+    {
+        return $booking;
+    }
+
+    /**
+     * Store a newly created booking in storage.
      *
      * @param  obj  $request
      * @return json Response
      */
-    public function storeApi(Request $request)
+    public function storeViaApi(Request $request)
     {
         $filters = [
             'customer_id' => 'digit',
@@ -46,24 +57,13 @@ class BookingController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $booking
-     * @return json Response
-     */
-    public function showApi(Booking $booking)
-    {
-        return $booking;
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified booking in storage.
      *
      * @param  obj  $request
      * @param  int  $booking
      * @return Response
      */
-    public function updateApi(Request $request, Booking $booking)
+    public function updateViaApi(Request $request, Booking $booking)
     {
         $booking->update($request->all());
 
@@ -71,12 +71,12 @@ class BookingController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified booking from storage.
      *
      * @param  int  $id
      * @return Response
      */
-    public function deleteApi(Booking $booking)
+    public function deleteViaApi(Booking $booking)
     {
         $booking->delete();
 

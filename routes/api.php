@@ -19,29 +19,29 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Movie routes
-Route::get('movies', 'MovieController@indexApi');
-Route::get('movies/{movie}', 'MovieController@showApi');
-Route::post('movies', 'MovieController@storeApi');
-Route::put('movies/{movie}', 'MovieController@updateApi');
-Route::delete('movies/{movie}', 'MovieController@deleteApi');
+Route::get('movies', 'MovieController@returnAll');
+Route::get('movies/{movie}', 'MovieController@returnOne');
+Route::post('movies', 'MovieController@storeViaApi');
+Route::put('movies/{movie}', 'MovieController@updateViaApi');
+Route::delete('movies/{movie}', 'MovieController@deleteViaApi');
 
 // Customer routes
-Route::get('customers', 'CustomerController@indexApi');
-Route::get('customers/{customer}', 'CustomerController@showApi');
-Route::post('customers', 'CustomerController@storeApi');
-Route::put('customers/{customer}', 'CustomerController@updateApi');
-Route::delete('customers/{customer}', 'CustomerController@deleteApi');
+Route::get('customers', 'CustomerController@returnAll');
+Route::get('customers/{customer}', 'CustomerController@returnOne');
+Route::post('customers', 'CustomerController@storeViaApi');
+Route::put('customers/{customer}', 'CustomerController@updateViaApi');
+Route::delete('customers/{customer}', 'CustomerController@deleteViaApi');
 
 // Showing routes
-Route::get('showings', 'ShowingController@indexApi');
-Route::get('showings/{showing}', 'ShowingController@showApi');
-Route::post('showings', 'ShowingController@storeApi');
-Route::put('showings/{showing}', 'ShowingController@updateApi');
-Route::delete('showings/{showing}', 'ShowingController@deleteApi');
+Route::get('showings', 'ShowingController@returnAll');
+Route::get('showings/{showing}', 'ShowingController@returnOne');
+Route::post('showings', 'ShowingController@storeViaApi');
+Route::put('showings/{showing}', 'ShowingController@updateViaApi');
+Route::delete('showings/{showing}', 'ShowingController@deleteViaApi');
 
 // Booking routes
-Route::get('bookings', 'BookingController@indexApi');
-Route::get('bookings/{booking}', 'BookingController@showApi');
-Route::post('bookings', 'BookingController@storeApi');
-Route::put('bookings/{booking}', 'BookingController@updateApi');
-Route::delete('bookings/{booking}', 'BookingController@deleteApi');
+Route::get('bookings', 'BookingController@returnAll');
+Route::get('bookings/{booking}', 'BookingController@returnOne');
+Route::post('bookings', 'BookingController@storeViaApi');
+Route::put('bookings/{booking}', 'BookingController@updateViaApi');
+Route::delete('bookings/{booking}', 'BookingController@deleteViaApi');

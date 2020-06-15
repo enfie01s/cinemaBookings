@@ -15,22 +15,33 @@ class CustomerController extends Controller
      */
     
     /**
-     * Display a listing of the resource.
+     * Return a listing of the customers.
      *
      * @return json Response
      */
-    public function indexApi()
+    public function returnAll()
     {
         return Customer::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Return the specified customer.
+     *
+     * @param  int  $customer
+     * @return json Response
+     */
+    public function returnOne(Customer $customer)
+    {
+        return $customer;
+    }
+
+    /**
+     * Store a newly created customer in storage.
      *
      * @param  obj  $request
      * @return json Response
      */
-    public function storeApi(Request $request)
+    public function storeViaApi(Request $request)
     {
         $filters = [
             'name' => 'trim|escape|capitalize',
@@ -44,24 +55,13 @@ class CustomerController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $customer
-     * @return json Response
-     */
-    public function showApi(Customer $customer)
-    {
-        return $customer;
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified customer in storage.
      *
      * @param  obj  $request
      * @param  int  $customer
      * @return Response
      */
-    public function updateApi(Request $request, Customer $customer)
+    public function updateViaApi(Request $request, Customer $customer)
     {
         $customer->update($request->all());
 
@@ -69,12 +69,12 @@ class CustomerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified customer from storage.
      *
      * @param  int  $id
      * @return Response
      */
-    public function deleteApi(Customer $customer)
+    public function deleteViaApi(Customer $customer)
     {
         $customer->delete();
 

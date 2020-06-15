@@ -9,7 +9,7 @@ use \Waavi\Sanitizer\Sanitizer;
 class MovieController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the movies.
      *
      * @return Response
      */
@@ -23,7 +23,7 @@ class MovieController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the form for creating a new movie.
      *
      * @return Response
      */
@@ -34,7 +34,7 @@ class MovieController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created movie in storage.
      *
      * @return Response
      */
@@ -55,7 +55,7 @@ class MovieController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified movie.
      *
      * @param  string  $seo_title
      * @return Response
@@ -69,39 +69,6 @@ class MovieController extends Controller
         return view('movies.show')->with($data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     /*
     
     API Responses
@@ -109,22 +76,33 @@ class MovieController extends Controller
      */
     
     /**
-     * Display a listing of the resource.
+     * Return a listing of the movies.
      *
      * @return json Response
      */
-    public function indexApi()
+    public function returnAll()
     {
         return Movie::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Return the specified movie.
+     *
+     * @param  int  $movie
+     * @return json Response
+     */
+    
+    public function returnOne(Movie $movie)
+    {
+        return $movie;
+    }
+    /**
+     * Store a newly created movie in storage.
      *
      * @param  obj  $request
      * @return json Response
      */
-    public function storeApi(Request $request)
+    public function storeViaApi(Request $request)
     {
         $filters = [
             'title' => 'trim|escape|capitalize',
@@ -140,24 +118,13 @@ class MovieController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $movie
-     * @return json Response
-     */
-    public function showApi(Movie $movie)
-    {
-        return $movie;
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified movie in storage.
      *
      * @param  obj  $request
      * @param  int  $movie
      * @return Response
      */
-    public function updateApi(Request $request, Movie $movie)
+    public function updateViaApi(Request $request, Movie $movie)
     {
         $movie->update($request->all());
 
@@ -165,12 +132,12 @@ class MovieController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified movie from storage.
      *
      * @param  int  $id
      * @return Response
      */
-    public function deleteApi(Movie $movie)
+    public function deleteViaApi(Movie $movie)
     {
         $movie->delete();
 

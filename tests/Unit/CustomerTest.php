@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Customer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Customer;
 
 class CustomerTest extends TestCase
 {
@@ -26,14 +26,12 @@ class CustomerTest extends TestCase
         );
     }
 
-    public function testCustomerAreListedCorrectly()
+    public function testCustomersAreListedCorrectly()
     {
         factory(Customer::class)->create($this->test_data[0]);
         factory(Customer::class)->create($this->test_data[1]);
 
-        $headers = [];
-
-        $response = $this->json('GET', '/api/customers', [], $headers)
+        $response = $this->json('GET', '/api/customers', [])
             ->assertStatus(200)
             ->assertJson($this->test_data)
             ->assertJsonStructure([
@@ -41,33 +39,29 @@ class CustomerTest extends TestCase
             ]);
     }
 
-    public function testsCustomerAreCreatedCorrectly()
+    public function testCustomersAreCreatedCorrectly()
     {
-        $headers = [];
-
-        $response = $this->call('POST', '/api/customers', $this->test_data[0], $headers)
+        $response = $this->call('POST', '/api/customers', $this->test_data[0])
             ->assertStatus(201);
     }
 
-    public function testsCustomerAreUpdatedCorrectly()
+    public function testCustomersAreUpdatedCorrectly()
     {
-        $headers = [];
         $customer = factory(Customer::class)->create($this->test_data[0]);
 
         $payload = $this->test_data[0];
         $assert_data = array('id' => 1) + $payload;
 
-        $response = $this->json('PUT', '/api/customers/' . $customer->id, $payload, $headers)
+        $response = $this->json('PUT', '/api/customers/' . $customer->id, $payload)
             ->assertStatus(200)
             ->assertJson($assert_data);
     }
 
-    public function testsCustomerAreDeletedCorrectly()
+    public function testCustomersAreDeletedCorrectly()
     {
-        $headers = [];
         $customer = factory(Customer::class)->create($this->test_data[0]);
 
-        $this->json('DELETE', '/api/customers/' . $customer->id, [], $headers)
+        $this->json('DELETE', '/api/customers/' . $customer->id, [])
             ->assertStatus(204);
     }
 }

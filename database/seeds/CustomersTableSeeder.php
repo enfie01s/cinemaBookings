@@ -7,7 +7,7 @@ use App\Customer;
 class CustomersTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Add some customers to the database.
      *
      * @return void
      */

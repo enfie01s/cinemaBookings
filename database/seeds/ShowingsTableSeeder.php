@@ -7,7 +7,7 @@ use App\Showing;
 class ShowingsTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Add some showings to the database.
      *
      * @return void
      */
