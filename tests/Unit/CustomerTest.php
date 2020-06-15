@@ -41,6 +41,14 @@ class CustomerTest extends TestCase
             ]);
     }
 
+    public function testsCustomerAreCreatedCorrectly()
+    {
+        $headers = [];
+
+        $response = $this->call('POST', '/api/customers', $this->test_data[0], $headers)
+            ->assertStatus(201);
+    }
+
     public function testsCustomerAreUpdatedCorrectly()
     {
         $headers = [];

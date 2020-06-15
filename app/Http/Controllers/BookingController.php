@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Booking;
+use Illuminate\Http\Request;
+use \Waavi\Sanitizer\Sanitizer;
 
 class BookingController extends Controller
 {
@@ -32,7 +33,14 @@ class BookingController extends Controller
      */
     public function storeApi(Request $request)
     {
-        $booking = Booking::create($request->all());
+        $filters = [
+            'customer_id' => 'digit',
+            'showing_id' => 'digit',
+            'seats' => 'cast:array',
+        ];
+        
+        $data = \Sanitizer::make($request->all(), $filters)->sanitize();
+        $booking = Booking::create($data);
 
         return response()->json($booking, 201);
     }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Showing extends Model
 {
-    protected $fillable = ['movie_id'];
+    protected $fillable = ['movie_id', 'start_at'];
     /**
      * Get the movie for the showing.
      */

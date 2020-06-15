@@ -45,6 +45,14 @@ class MovieTest extends TestCase
             ]);
     }
 
+    public function testsMovieAreCreatedCorrectly()
+    {
+        $headers = [];
+
+        $response = $this->call('POST', '/api/movies', $this->test_data[0], $headers)
+            ->assertStatus(201);
+    }
+
     public function testsMovieAreUpdatedCorrectly()
     {
         $headers = [];

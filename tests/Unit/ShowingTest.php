@@ -43,6 +43,14 @@ class ShowingTest extends TestCase
             ]);
     }
 
+    public function testsShowingAreCreatedCorrectly()
+    {
+        $headers = [];
+
+        $response = $this->call('POST', '/api/showings', $this->test_data[0], $headers)
+            ->assertStatus(201);
+    }
+
     public function testsShowingAreUpdatedCorrectly()
     {
         $headers = [];

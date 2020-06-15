@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Customer;
+use Illuminate\Http\Request;
+use \Waavi\Sanitizer\Sanitizer;
 
 class CustomerController extends Controller
 {
@@ -31,7 +32,13 @@ class CustomerController extends Controller
      */
     public function storeApi(Request $request)
     {
-        $customer = Customer::create($request->all());
+        $filters = [
+            'name' => 'trim|escape|capitalize',
+            'email' => 'trim|escape|lowercase',
+        ];
+        
+        $data = \Sanitizer::make($request->all(), $filters)->sanitize();
+        $customer = Customer::create($data);
 
         return response()->json($customer, 201);
     }

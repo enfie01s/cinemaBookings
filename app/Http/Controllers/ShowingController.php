@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Showing;
+use Illuminate\Http\Request;
+use \Waavi\Sanitizer\Sanitizer;
 
 class ShowingController extends Controller
 {
@@ -31,7 +32,13 @@ class ShowingController extends Controller
      */
     public function storeApi(Request $request)
     {
-        $showing = Showing::create($request->all());
+        $filters = [
+            'movie_id' => 'digit',
+            'start_at' => 'trim',
+        ];
+        
+        $data = \Sanitizer::make($request->all(), $filters)->sanitize();
+        $showing = Showing::create($data);
 
         return response()->json($showing, 201);
     }

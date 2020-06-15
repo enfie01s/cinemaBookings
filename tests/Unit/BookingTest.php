@@ -58,6 +58,14 @@ class BookingTest extends TestCase
             ]);
     }
 
+    public function testsBookingAreCreatedCorrectly()
+    {
+        $headers = [];
+
+        $response = $this->call('POST', '/api/bookings', $this->test_data[0], $headers)
+            ->assertStatus(201);
+    }
+
     public function testsBookingAreUpdatedCorrectly()
     {
         $headers = [];

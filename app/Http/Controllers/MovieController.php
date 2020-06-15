@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Movie;
+use Illuminate\Http\Request;
+use \Waavi\Sanitizer\Sanitizer;
 
 class MovieController extends Controller
 {
@@ -125,7 +126,15 @@ class MovieController extends Controller
      */
     public function storeApi(Request $request)
     {
-        $movie = Movie::create($request->all());
+        $filters = [
+            'title' => 'trim|escape|capitalize',
+            'seo_title' => 'trim|escape|lowercase',
+            'certification' => 'trim|escape|uppercase',
+            'synopsis' => 'strip_tags',
+        ];
+        
+        $data = \Sanitizer::make($request->all(), $filters)->sanitize();
+        $movie = Movie::create($data);
 
         return response()->json($movie, 201);
     }
