@@ -38,3 +38,27 @@ The API endpoints for returning a list or single item are as follows:
 - /api/showing/1
 - /api/bookings
 - /api/booking/1
+
+## Installation
+
+First clone the repository 
+```bash
+git clone https://github.com/enfie01s/cinemaBookings.git
+```
+
+Navigate to the directory which was created and install the dependencies
+```bash
+composer install
+```
+
+Set up your database and enter the connection details into the **.env** file located in the root directory.
+
+Now you will need to run the migrations
+```bash
+php artisan migrate
+```
+
+Finally seed the database with the test data
+```bash
+php artisan db:seed
+```
