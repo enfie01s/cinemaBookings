@@ -7,14 +7,11 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home</a>
+      <li class="nav-item {{ $active_home ?? '' }}">
+        <a class="nav-link" href="/">Home</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Bookings</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Movies</a>
+      <li class="nav-item {{ $active_movies ?? '' }}">
+        <a class="nav-link" href="/movies">Movies</a>
       </li>
     </ul>
   </div>

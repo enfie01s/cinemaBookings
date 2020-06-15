@@ -17,6 +17,7 @@ class MovieController extends Controller
     {
         $data = array(
             'title' => 'Movie list',
+            'active_movies' => 'active',
             'movies' => Movie::orderBy('created_at')->paginate(10),
         );
         return view('movies.index')->with($data);
