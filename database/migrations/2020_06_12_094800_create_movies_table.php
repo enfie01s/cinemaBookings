@@ -17,7 +17,7 @@ class CreateMoviesTable extends Migration
             $table->increments('id');
             $table->string('certification')->default('x');
             $table->string('seo_title')->unique();
-            $table->text('synopsis')->default('');
+            $table->text('synopsis');
             $table->string('title');
             $table->timestamps();
         });

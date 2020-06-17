@@ -44,12 +44,14 @@ class MovieController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'seo_title' => 'required',
+            'synopsis' => 'required',
         ]);
 
         // Create new movie
         $movie = new Movie;
         $movie->title = $request->input('title');
         $movie->seo_title = $request->input('seo_title');
+        $movie->synopsis = $request->input('synopsis');
         $movie->save();
 
         return redirect('/movies')->with('success');
@@ -109,6 +111,7 @@ class MovieController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'seo_title' => 'required|unique:movies',
+            'synopsis' => 'required',
         ]);
 
         // Validation passed, now sanitize the data.
