@@ -2,7 +2,7 @@
 
 ## About Fantastic Films
 
-This is a simple project I created while learning [Laravel](https://laravel.com/). It is currently an API for booking a movie showing (and includes the usual create, update, delete functionality). I will be adding more functionality to this later as I progress.
+This is a simple project I created while learning [Laravel](https://laravel.com/). It is currently an API for booking a movie showing (and includes the usual CRUD functionality). I will be adding more to this later as I progress.
 
 ## Libraries used
 There are two libraries I have used in this project for data sanitization and tidy forms, they are as follows:
@@ -10,7 +10,7 @@ There are two libraries I have used in this project for data sanitization and ti
 - [Waavi/Sanitizer](https://github.com/Waavi/Sanitizer)
 - [Laravel Collective HTML](https://github.com/LaravelCollective/html)
 
-## Avout Laravel
+## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. They believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
